@@ -7,7 +7,7 @@ TurtleCoin Wallet written in C# for windows and linux through Mono.
 # Download and Running
 
 Check here for the latest release: 
-https://github.com/codingwithredbull/TurtleCoin-Wallet-.NET/releases
+https://github.com/turtlecoin/desktop-xamarin/releases
 
 After downloading extract and run the TurtleWallet.exe
 
