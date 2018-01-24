@@ -11,6 +11,8 @@ https://github.com/turtlecoin/desktop-xamarin/releases
 
 After downloading extract and run the TurtleWallet.exe
 
+# Like the project and want to send some TRTL? Why thank you!
+TRTLuyAYVuSEVEqf9sDxvhRZVwqGRBhKdCyDVLX2yYDMQ2XzkrWaRWG9s4qYAnodaJcu7o5MVDAmmPv6exeREvqqXTtmVTQJk5p
 
 # In progress
 
