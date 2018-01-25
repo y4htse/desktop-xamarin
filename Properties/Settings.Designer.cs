@@ -94,5 +94,17 @@ namespace TurtleWallet.Properties {
                 this["walletPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int defaultFee {
+            get {
+                return ((int)(this["defaultFee"]));
+            }
+            set {
+                this["defaultFee"] = value;
+            }
+        }
     }
 }

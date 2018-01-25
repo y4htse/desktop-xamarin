@@ -108,7 +108,7 @@ namespace TurtleWallet
 
         private void createWalletButton_Click(object sender, EventArgs e)
         {
-            if(passwordText.Text != "" && passwordText.Text.Length > 6)
+            if(passwordText.Text != "")
             {
                 walletPassword = passwordText.Text;
                 this.DialogResult = DialogResult.OK;

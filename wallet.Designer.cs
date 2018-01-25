@@ -477,8 +477,8 @@
             // 
             // walletTabControl
             // 
-            this.walletTabControl.Controls.Add(this.tabPage1);
             this.walletTabControl.Controls.Add(this.tabPage2);
+            this.walletTabControl.Controls.Add(this.tabPage1);
             this.walletTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.walletTabControl.ItemSize = new System.Drawing.Size(0, 2);
             this.walletTabControl.Location = new System.Drawing.Point(0, 0);
@@ -603,6 +603,7 @@
             this.sendTrtlButton.TabIndex = 11;
             this.sendTrtlButton.Text = "Send";
             this.sendTrtlButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.sendTrtlButton.Click += new System.EventHandler(this.sendTrtlButton_Click);
             // 
             // label22
             // 
@@ -650,6 +651,7 @@
             this.tableLayoutPanel7.SetColumnSpan(this.recipientAddressText, 2);
             this.recipientAddressText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.recipientAddressText.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.recipientAddressText.ForeColor = System.Drawing.Color.White;
             this.recipientAddressText.Location = new System.Drawing.Point(182, 7);
             this.recipientAddressText.Margin = new System.Windows.Forms.Padding(3, 7, 10, 3);
             this.recipientAddressText.Name = "recipientAddressText";
@@ -691,6 +693,7 @@
             this.sendAmountText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.sendAmountText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sendAmountText.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sendAmountText.ForeColor = System.Drawing.Color.White;
             this.sendAmountText.Location = new System.Drawing.Point(3, 5);
             this.sendAmountText.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.sendAmountText.Name = "sendAmountText";
@@ -732,6 +735,7 @@
             this.feeAmountText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.feeAmountText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.feeAmountText.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.feeAmountText.ForeColor = System.Drawing.Color.White;
             this.feeAmountText.Location = new System.Drawing.Point(3, 5);
             this.feeAmountText.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.feeAmountText.Name = "feeAmountText";
@@ -794,6 +798,7 @@
             this.feeSuggestCheck.Text = "Use suggested fee amount";
             this.feeSuggestCheck.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.feeSuggestCheck.UseVisualStyleBackColor = true;
+            this.feeSuggestCheck.CheckedChanged += new System.EventHandler(this.feeSuggestCheck_CheckedChanged);
             // 
             // panel4
             // 

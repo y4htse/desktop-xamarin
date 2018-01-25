@@ -42,6 +42,7 @@ namespace TurtleWallet
             InitializeComponent();
             walletPath = _wallet;
             walletPassword = _password;
+            versionLabel.Text = "v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
         }
 
         private void Splash_Load(object sender, EventArgs e)

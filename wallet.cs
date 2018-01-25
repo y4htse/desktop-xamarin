@@ -77,6 +77,8 @@ namespace TurtleWallet
             Properties.Settings.Default.walletPath = _wallet;
             Properties.Settings.Default.hasWallet = true;
             Properties.Settings.Default.Save();
+            feeAmountText.Text = Properties.Settings.Default.defaultFee.ToString();
+            feeAmountText.Enabled = false;
         }
 
         private void wallet_Load(object sender, EventArgs e)
@@ -499,21 +501,122 @@ namespace TurtleWallet
 
         private void resyncer_DoWork(object sender, DoWorkEventArgs e)
         {
-            while(true)
+            try
             {
-                refresh_ui();
-                System.Threading.Thread.Sleep(5000);
-                this.updateLabel.BeginInvoke((MethodInvoker)delegate ()
+                while (true)
                 {
-                    updateLabel.Text = "Wallet Idle ...";
-                    updateLabel.ForeColor = Color.Gray;
-                });
+                    refresh_ui();
+                    System.Threading.Thread.Sleep(5000);
+                    this.updateLabel.BeginInvoke((MethodInvoker)delegate ()
+                    {
+                        updateLabel.Text = "Wallet Idle ...";
+                        updateLabel.ForeColor = Color.Gray;
+                    });
+                }
+            }
+            catch
+            {
+                //Empty catch for when the app exits, and the thread didnt have time to shut down.
             }
         }
 
         private void wallet_FormClosing(object sender, FormClosingEventArgs e)
         {
             runningDaemon.Kill();
+        }
+
+        private void sendTrtlButton_Click(object sender, EventArgs e)
+        {
+            string sendAddr = recipientAddressText.Text;
+            int amount = 0;
+            int fee = 0;
+
+            if (!sendAddr.StartsWith("TRTL") || sendAddr.Length <= 50)
+            {
+                MessageBox.Show("The address you are sending to is invalid, please check it.", "TurtleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            string myAddr = myAddressText.Text;
+            if(sendAddr == myAddr)
+            {
+                MessageBox.Show("Sending to yourself is not supported.", "TurtleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            try
+            {
+                amount = (int)(float.Parse(sendAmountText.Text) * 100);
+                if(amount <= 0)
+                {
+                    MessageBox.Show("Invalid send amount.", "TurtleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Invalid send amount.", "TurtleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            fee = Properties.Settings.Default.defaultFee;
+            if(!feeSuggestCheck.Checked)
+            {
+                try
+                {
+                    fee = (int)(float.Parse(sendAmountText.Text) * 100);
+                    if (fee <= 0)
+                    {
+                        MessageBox.Show("Invalid fee amount.", "TurtleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    if (fee >= 1000)
+                    {
+                        MessageBox.Show("Thats a high fee you got there! You sure thats right?", "TurtleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Invalid fee amount.", "TurtleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            int mixins = (int)mixinNumeric.Value;
+
+            var transfers = new List<Dictionary<string, object>>();
+            transfers.Add(new Dictionary<string, object>() { { "amount", amount }, { "address", sendAddr } });
+
+            var args = new Dictionary<string, object>()
+            {
+                { "anonymity", mixins },
+                { "fee", fee },
+                { "transfers", transfers }
+            };
+
+            try
+            {
+                var resp = ConnectionManager.request("sendTransaction", args);
+                if(resp.Item1 == false)
+                {
+                    MessageBox.Show("Error occured on send:" + Environment.NewLine + resp.Item2, "TurleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                string txhash = resp.Item3["transactionHash"].ToString();
+                MessageBox.Show("Transaction send was successful!" + Environment.NewLine + "Amount: " + ((float)amount / 100).ToString() + Environment.NewLine + "Mix: " + mixins.ToString() + Environment.NewLine + "To: " + sendAddr + Environment.NewLine + "Trx hash: " + txhash, "TurtleCoin Wallet", MessageBoxButtons.OK,MessageBoxIcon.Information);
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error occured on send:" + Environment.NewLine + ex.Message, "TurleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+        }
+
+        private void feeSuggestCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (feeSuggestCheck.Checked)
+                feeAmountText.Enabled = false;
+            else
+                feeAmountText.Enabled = true;
         }
     }
 }
