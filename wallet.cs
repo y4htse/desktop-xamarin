@@ -569,7 +569,7 @@ namespace TurtleWallet
             {
                 try
                 {
-                    fee = (int)(float.Parse(sendAmountText.Text) * 100);
+                    fee = (int)(float.Parse(feeAmountText.Text) * 100);
                     if (fee <= 0)
                     {
                         MessageBox.Show("Invalid fee amount.", "TurtleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
