@@ -117,6 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="rpcTextbox.Text" xml:space="preserve">
+    <value>reset	-	reset() method allows you to re-sync your wallet.
+save	-	save() method allows you to save your wallet by request.
+getViewKey	-	getViewKey() method returns address view key.
+getSpendKeys	-	getSpendKeys() method returns address spend keys.
+getStatus	-	getStatus() method returns information about the current RPC Wallet state: block_count, known_block_count, last_block_hash and peer_count.
+getAddresses	-	getAddresses() method returns an array of your RPC Wallet's addresses.
+createAddress	-	createAddress() method creates an address.
+deleteAddress	-	deleteAddress() method deletes a specified address.
+getBalance	-	getBalance() method returns a balance for a specified address. If address is not specified, returns a cumulative balance of all RPC Wallet's addresses.
+getBlockHashes	-	getBlockHashes() method returns an array of block hashes for a specified block range.
+getTransactionHashes	-	getTransactionHashes() method returns an array of block and transaction hashes.
+getTransactions	-	getTransactions() method returns information about the transactions in specified block range or for specified addresses.
+getUnconfirmedTransactionHashes	-	getUnconfirmedTransactionHashes() method returns information about the current unconfirmed transaction pool or for a specified addresses.
+getTransaction	-	getTransaction() method returns information about the specified transaction.
+sendTransaction	-	sendTransaction() method creates and sends a transaction.
+createDelayedTransaction	-	createDelayedTransaction() method creates but not sends a transaction.
+getDelayedTransactionHashes	-	getDelayedTransactionHashes() method returns hashes of delayed transactions.
+deleteDelayedTransaction	-	deleteDelayedTransaction() method deletes a specified delayed transaction.
+sendDelayedTransaction	-	sendDelayedTransaction() method sends a specified delayed transaction.
+sendFusionTransaction	-	sendFusionTransaction() method creates and sends a fusion transaction.
+estimateFusion	-	estimateFusion() method allows to estimate a number of outputs that can be optimized with fusion transactions.</value>
+  </data>
   <metadata name="resyncer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>

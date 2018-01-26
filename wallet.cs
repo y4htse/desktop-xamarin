@@ -23,6 +23,7 @@ namespace TurtleWallet
         public static Label _selectedTab;
         public static List<string> cachedTrx = new List<string>();
         public static Process runningDaemon;
+        public static WindowLogger windowLogger;
 
         public string walletPath
         {
@@ -79,16 +80,22 @@ namespace TurtleWallet
             Properties.Settings.Default.Save();
             feeAmountText.Text = Properties.Settings.Default.defaultFee.ToString();
             feeAmountText.Enabled = false;
+            windowLogger = new WindowLogger();
+            walletTabControl.SelectedIndex = 0;
         }
 
         private void wallet_Load(object sender, EventArgs e)
         {
             versionLabel.Text = "v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            windowLogger.Log(LogTextbox, "TurtleCoin Wallet " + "v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version + " has started ...");
             new Thread(new ThreadStart(update_live_stats)).Start();
+            windowLogger.Log(LogTextbox, "Live Stats Update thread started ...");
             statsTimer.Interval = 30000;
             statsTimer.Tick += StatsTimer_Tick;
             statsTimer.Start();
+            windowLogger.Log(LogTextbox, "Live Stats Update timer started ...");
             resyncer.RunWorkerAsync();
+            windowLogger.Log(LogTextbox, "Network Sync Thread started ...");
         }
 
         private void StatsTimer_Tick(object sender, EventArgs e)
@@ -157,6 +164,7 @@ namespace TurtleWallet
                     updateLabel.Text = "Livestats update failed ...";
                     updateLabel.ForeColor = Color.FromArgb(205, 12, 47);
                 });
+                windowLogger.Log(LogTextbox, "Livestats update failed ...");
                 System.Threading.Thread.Sleep(2000);
                 this.updateLabel.BeginInvoke((MethodInvoker)delegate ()
                 {
@@ -216,6 +224,7 @@ namespace TurtleWallet
                 this.updateLabel.BeginInvoke((MethodInvoker)delegate ()
                 {
                     updateLabel.Text = "Daemon error, retrying ...";
+                    windowLogger.Log(LogTextbox, "Daemon error, retrying ...");
                     updateLabel.ForeColor = Color.FromArgb(205, 12, 47);
                 });
                 if (currentTimeout >= watchdogTimeout)
@@ -227,6 +236,7 @@ namespace TurtleWallet
                     else
                     {
                         MessageBox.Show("Turtle Wallet has tried numerous times to relaunch the needed daemon and has failed. Please relaunch the wallet!", "Walletd daemon could not be recovered!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        windowLogger.Log(LogTextbox, "Turtle Wallet has tried numerous times to relaunch the needed daemon and has failed. Please relaunch the wallet!");
                         this.Close();
                     }
                 }
@@ -305,8 +315,13 @@ namespace TurtleWallet
                         txList.BeginInvoke((MethodInvoker)delegate ()
                         {
                             txList.Items.Add(trxItem);
+                            foreach (ColumnHeader column in txList.Columns)
+                            {
+                                column.Width = -2;
+                            }
                         });
                         cachedTrx.Add(transaction["transactionHash"].ToString());
+                        windowLogger.Log(LogTextbox, "Found transaction " + transaction["transactionHash"].ToString() + ". Added to list ...");
                     }
                 }
             }
@@ -316,15 +331,6 @@ namespace TurtleWallet
             {
                 this.Text = titleUpdate;
                 this.Update();
-            });
-
-
-            txList.BeginInvoke((MethodInvoker)delegate ()
-            {
-                foreach (ColumnHeader column in txList.Columns)
-                {
-                    column.Width = -2;
-                }
             });
 
         }
@@ -497,6 +503,7 @@ namespace TurtleWallet
         private void copyAddressButton_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(myAddressText.Text);
+            MessageBox.Show("Address copied to clipboard!", "TurtleCoin Wallet");
         }
 
         private void resyncer_DoWork(object sender, DoWorkEventArgs e)
@@ -597,15 +604,17 @@ namespace TurtleWallet
                 if(resp.Item1 == false)
                 {
                     MessageBox.Show("Error occured on send:" + Environment.NewLine + resp.Item2, "TurleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    windowLogger.Log(LogTextbox, "Error occured on send:" + Environment.NewLine + resp.Item2);
                     return;
                 }
                 string txhash = resp.Item3["transactionHash"].ToString();
                 MessageBox.Show("Transaction send was successful!" + Environment.NewLine + "Amount: " + ((float)amount / 100).ToString() + Environment.NewLine + "Mix: " + mixins.ToString() + Environment.NewLine + "To: " + sendAddr + Environment.NewLine + "Trx hash: " + txhash, "TurtleCoin Wallet", MessageBoxButtons.OK,MessageBoxIcon.Information);
-
+                windowLogger.Log(LogTextbox, "Transaction send was successful!" + Environment.NewLine + "Amount: " + ((float)amount / 100).ToString() + Environment.NewLine + "Mix: " + mixins.ToString() + Environment.NewLine + "To: " + sendAddr + Environment.NewLine + "Trx hash: " + txhash);
             }
             catch(Exception ex)
             {
                 MessageBox.Show("Error occured on send:" + Environment.NewLine + ex.Message, "TurleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                windowLogger.Log(LogTextbox, "Error occured on send:" + Environment.NewLine + ex.Message);
             }
 
 
@@ -617,6 +626,69 @@ namespace TurtleWallet
                 feeAmountText.Enabled = false;
             else
                 feeAmountText.Enabled = true;
+        }
+
+        private void sendRPCButton_Click(object sender, EventArgs e)
+        {
+            if(methodTextbox.Text == "")
+            {
+                MessageBox.Show("Invalid method on RPC send", "TurtleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (argTextbox.Text == "")
+            {
+                MessageBox.Show("Invalid argument on RPC send. If there are no arguments, use '{}'.", "TurtleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            try
+            {
+                var req = ConnectionManager._requestRPC(methodTextbox.Text, argTextbox.Text);
+                rpcTextbox.AppendText(Environment.NewLine + req + Environment.NewLine);
+            }
+            catch(Exception ex)
+            {
+                rpcTextbox.AppendText(Environment.NewLine + "ERROR: " + ex.ToString() + Environment.NewLine);
+            }
+        }
+
+        private void logButton_Click(object sender, EventArgs e)
+        {
+            var currentButton = (Label)sender;
+            if (_selectedTab != currentButton)
+            {
+                var backcolor = Color.FromArgb(52, 52, 52);
+                var forcolor = Color.FromArgb(224, 224, 224);
+                _selectedTab.BackColor = backcolor;
+                _selectedTab.ForeColor = forcolor;
+
+                walletTabControl.SelectedIndex = 2;
+                _selectedTab = currentButton;
+
+                backcolor = Color.FromArgb(82, 82, 82);
+                forcolor = Color.FromArgb(39, 170, 107);
+                _selectedTab.BackColor = backcolor;
+                _selectedTab.ForeColor = forcolor;
+            }
+        }
+
+        private void rpcButton_Click(object sender, EventArgs e)
+        {
+            var currentButton = (Label)sender;
+            if (_selectedTab != currentButton)
+            {
+                var backcolor = Color.FromArgb(52, 52, 52);
+                var forcolor = Color.FromArgb(224, 224, 224);
+                _selectedTab.BackColor = backcolor;
+                _selectedTab.ForeColor = forcolor;
+
+                walletTabControl.SelectedIndex = 3;
+                _selectedTab = currentButton;
+
+                backcolor = Color.FromArgb(82, 82, 82);
+                forcolor = Color.FromArgb(39, 170, 107);
+                _selectedTab.BackColor = backcolor;
+                _selectedTab.ForeColor = forcolor;
+            }
         }
     }
 }

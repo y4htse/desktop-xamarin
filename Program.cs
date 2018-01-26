@@ -24,6 +24,9 @@ namespace TurtleWallet
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            var uPrompt = new updatePrompt();
+            uPrompt.ShowDialog();
+
             string _pass = "";
             string _wallet = "";
             if(Properties.Settings.Default.walletPath != "" && System.IO.File.Exists(Properties.Settings.Default.walletPath))

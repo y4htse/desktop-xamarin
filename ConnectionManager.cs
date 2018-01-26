@@ -38,6 +38,26 @@ namespace TurtleWallet
             return (JObject)jobj["result"];
         }
 
+        public static string _requestRPC(string method, string args)
+        {
+            var args_dict = JsonConvert.DeserializeObject<Dictionary<string, object>>(args);
+            var builtURL = Properties.Settings.Default.RPCprotocol + "://" + Properties.Settings.Default.RPCdestination + ":" + Properties.Settings.Default.RPCport + Properties.Settings.Default.RPCtrailing;
+            var payload = new Dictionary<string, object>()
+            {
+                { "jsonrpc", "2.0" },
+                { "method", method },
+                { "params", args_dict },
+                { "id", rpcID.ToString() }
+            };
+            string payloadJSON = JsonConvert.SerializeObject(payload, Formatting.Indented);
+            rpcID++;
+
+            var cli = new WebClient();
+            cli.Headers[HttpRequestHeader.ContentType] = "application/json";
+            string response = cli.UploadString(builtURL, payloadJSON);
+            return response;
+        }
+
         public static Tuple<bool,string,JObject> request(string method, Dictionary<string, object> args = null)
         {
             if (args == null) args = new Dictionary<string, object>() { };

@@ -55,13 +55,6 @@
             this.myAddressText = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.walletTabControl = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.txList = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.sendTrtlButton = new System.Windows.Forms.Label();
@@ -81,12 +74,32 @@
             this.feeSuggestCheck = new System.Windows.Forms.CheckBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txList = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.logButton = new System.Windows.Forms.Label();
             this.rpcButton = new System.Windows.Forms.Label();
             this.homeButton = new System.Windows.Forms.Label();
             this.sendButton = new System.Windows.Forms.Label();
             this.resyncer = new System.ComponentModel.BackgroundWorker();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.LogTextbox = new System.Windows.Forms.TextBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
+            this.rpcTextbox = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.sendRPCButton = new System.Windows.Forms.Button();
+            this.methodTextbox = new System.Windows.Forms.TextBox();
+            this.argTextbox = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -96,14 +109,20 @@
             this.tableLayoutPanel5.SuspendLayout();
             this.panel3.SuspendLayout();
             this.walletTabControl.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mixinNumeric)).BeginInit();
+            this.tabPage1.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
+            this.tableLayoutPanel12.SuspendLayout();
+            this.tableLayoutPanel13.SuspendLayout();
+            this.tableLayoutPanel14.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -477,8 +496,10 @@
             // 
             // walletTabControl
             // 
-            this.walletTabControl.Controls.Add(this.tabPage2);
             this.walletTabControl.Controls.Add(this.tabPage1);
+            this.walletTabControl.Controls.Add(this.tabPage2);
+            this.walletTabControl.Controls.Add(this.tabPage3);
+            this.walletTabControl.Controls.Add(this.tabPage4);
             this.walletTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.walletTabControl.ItemSize = new System.Drawing.Size(0, 2);
             this.walletTabControl.Location = new System.Drawing.Point(0, 0);
@@ -490,64 +511,6 @@
             this.walletTabControl.Size = new System.Drawing.Size(1022, 207);
             this.walletTabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.walletTabControl.TabIndex = 3;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(29)))), ((int)(((byte)(29)))));
-            this.tabPage1.Controls.Add(this.txList);
-            this.tabPage1.Location = new System.Drawing.Point(4, 6);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(0);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(1014, 197);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            // 
-            // txList
-            // 
-            this.txList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(29)))), ((int)(((byte)(29)))));
-            this.txList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5});
-            this.txList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txList.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txList.FullRowSelect = true;
-            this.txList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.txList.Location = new System.Drawing.Point(0, 0);
-            this.txList.MultiSelect = false;
-            this.txList.Name = "txList";
-            this.txList.Size = new System.Drawing.Size(1014, 197);
-            this.txList.TabIndex = 4;
-            this.txList.UseCompatibleStateImageBehavior = false;
-            this.txList.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Confirmed";
-            this.columnHeader1.Width = 120;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "   ⇚ ⇛";
-            this.columnHeader2.Width = 90;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "  Amount";
-            this.columnHeader3.Width = 108;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "  Date";
-            this.columnHeader4.Width = 240;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "  Address";
-            this.columnHeader5.Width = 515;
             // 
             // tabPage2
             // 
@@ -816,6 +779,64 @@
             this.panel5.Size = new System.Drawing.Size(490, 44);
             this.panel5.TabIndex = 10;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(29)))), ((int)(((byte)(29)))));
+            this.tabPage1.Controls.Add(this.txList);
+            this.tabPage1.Location = new System.Drawing.Point(4, 6);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(1014, 197);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            // 
+            // txList
+            // 
+            this.txList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(29)))), ((int)(((byte)(29)))));
+            this.txList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5});
+            this.txList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txList.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txList.FullRowSelect = true;
+            this.txList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.txList.Location = new System.Drawing.Point(0, 0);
+            this.txList.MultiSelect = false;
+            this.txList.Name = "txList";
+            this.txList.Size = new System.Drawing.Size(1014, 197);
+            this.txList.TabIndex = 4;
+            this.txList.UseCompatibleStateImageBehavior = false;
+            this.txList.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Confirmed";
+            this.columnHeader1.Width = 120;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "   ⇚ ⇛";
+            this.columnHeader2.Width = 90;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "  Amount";
+            this.columnHeader3.Width = 108;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "  Date";
+            this.columnHeader4.Width = 240;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "  Address";
+            this.columnHeader5.Width = 515;
+            // 
             // tableLayoutPanel6
             // 
             this.tableLayoutPanel6.ColumnCount = 5;
@@ -855,6 +876,7 @@
             this.logButton.TabIndex = 2;
             this.logButton.Text = "LOGS";
             this.logButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.logButton.Click += new System.EventHandler(this.logButton_Click);
             this.logButton.MouseEnter += new System.EventHandler(this.logButton_MouseEnter);
             this.logButton.MouseLeave += new System.EventHandler(this.logButton_MouseLeave);
             // 
@@ -873,6 +895,7 @@
             this.rpcButton.TabIndex = 3;
             this.rpcButton.Text = "RPC Console";
             this.rpcButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rpcButton.Click += new System.EventHandler(this.rpcButton_Click);
             this.rpcButton.MouseEnter += new System.EventHandler(this.rpcButton_MouseEnter);
             this.rpcButton.MouseLeave += new System.EventHandler(this.rpcButton_MouseLeave);
             // 
@@ -918,6 +941,184 @@
             // 
             this.resyncer.DoWork += new System.ComponentModel.DoWorkEventHandler(this.resyncer_DoWork);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.LogTextbox);
+            this.tabPage3.Location = new System.Drawing.Point(4, 6);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(1014, 197);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // LogTextbox
+            // 
+            this.LogTextbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LogTextbox.Location = new System.Drawing.Point(0, 0);
+            this.LogTextbox.Multiline = true;
+            this.LogTextbox.Name = "LogTextbox";
+            this.LogTextbox.ReadOnly = true;
+            this.LogTextbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.LogTextbox.Size = new System.Drawing.Size(1014, 197);
+            this.LogTextbox.TabIndex = 0;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.tableLayoutPanel11);
+            this.tabPage4.Location = new System.Drawing.Point(4, 6);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(1014, 197);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel11
+            // 
+            this.tableLayoutPanel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.tableLayoutPanel11.ColumnCount = 1;
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel11.Controls.Add(this.tableLayoutPanel12, 0, 1);
+            this.tableLayoutPanel11.Controls.Add(this.rpcTextbox, 0, 0);
+            this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
+            this.tableLayoutPanel11.RowCount = 2;
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 76.96335F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.03665F));
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(1008, 191);
+            this.tableLayoutPanel11.TabIndex = 0;
+            // 
+            // tableLayoutPanel12
+            // 
+            this.tableLayoutPanel12.ColumnCount = 3;
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel12.Controls.Add(this.tableLayoutPanel13, 0, 0);
+            this.tableLayoutPanel12.Controls.Add(this.tableLayoutPanel14, 1, 0);
+            this.tableLayoutPanel12.Controls.Add(this.sendRPCButton, 2, 0);
+            this.tableLayoutPanel12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel12.Location = new System.Drawing.Point(3, 149);
+            this.tableLayoutPanel12.Name = "tableLayoutPanel12";
+            this.tableLayoutPanel12.RowCount = 1;
+            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(1002, 39);
+            this.tableLayoutPanel12.TabIndex = 0;
+            // 
+            // rpcTextbox
+            // 
+            this.rpcTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.rpcTextbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpcTextbox.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rpcTextbox.ForeColor = System.Drawing.Color.White;
+            this.rpcTextbox.Location = new System.Drawing.Point(3, 3);
+            this.rpcTextbox.Multiline = true;
+            this.rpcTextbox.Name = "rpcTextbox";
+            this.rpcTextbox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.rpcTextbox.Size = new System.Drawing.Size(1002, 140);
+            this.rpcTextbox.TabIndex = 1;
+            this.rpcTextbox.Text = resources.GetString("rpcTextbox.Text");
+            // 
+            // tableLayoutPanel13
+            // 
+            this.tableLayoutPanel13.ColumnCount = 2;
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.54651F));
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 76.45349F));
+            this.tableLayoutPanel13.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel13.Controls.Add(this.methodTextbox, 1, 0);
+            this.tableLayoutPanel13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel13.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel13.Name = "tableLayoutPanel13";
+            this.tableLayoutPanel13.RowCount = 1;
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(344, 33);
+            this.tableLayoutPanel13.TabIndex = 0;
+            // 
+            // tableLayoutPanel14
+            // 
+            this.tableLayoutPanel14.ColumnCount = 2;
+            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.09091F));
+            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70.90909F));
+            this.tableLayoutPanel14.Controls.Add(this.argTextbox, 0, 0);
+            this.tableLayoutPanel14.Controls.Add(this.label4, 0, 0);
+            this.tableLayoutPanel14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel14.Location = new System.Drawing.Point(353, 3);
+            this.tableLayoutPanel14.Name = "tableLayoutPanel14";
+            this.tableLayoutPanel14.RowCount = 1;
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel14.Size = new System.Drawing.Size(495, 33);
+            this.tableLayoutPanel14.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(74, 33);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Method:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(3, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(138, 33);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "JSON Arguments:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // sendRPCButton
+            // 
+            this.sendRPCButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.sendRPCButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sendRPCButton.FlatAppearance.BorderSize = 0;
+            this.sendRPCButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
+            this.sendRPCButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.sendRPCButton.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sendRPCButton.ForeColor = System.Drawing.Color.White;
+            this.sendRPCButton.Location = new System.Drawing.Point(851, 0);
+            this.sendRPCButton.Margin = new System.Windows.Forms.Padding(0);
+            this.sendRPCButton.Name = "sendRPCButton";
+            this.sendRPCButton.Size = new System.Drawing.Size(151, 39);
+            this.sendRPCButton.TabIndex = 2;
+            this.sendRPCButton.Text = "Send";
+            this.sendRPCButton.UseVisualStyleBackColor = false;
+            this.sendRPCButton.Click += new System.EventHandler(this.sendRPCButton_Click);
+            // 
+            // methodTextbox
+            // 
+            this.methodTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.methodTextbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.methodTextbox.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.methodTextbox.ForeColor = System.Drawing.Color.White;
+            this.methodTextbox.Location = new System.Drawing.Point(83, 3);
+            this.methodTextbox.Name = "methodTextbox";
+            this.methodTextbox.Size = new System.Drawing.Size(258, 27);
+            this.methodTextbox.TabIndex = 13;
+            // 
+            // argTextbox
+            // 
+            this.argTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.argTextbox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.argTextbox.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.argTextbox.ForeColor = System.Drawing.Color.White;
+            this.argTextbox.Location = new System.Drawing.Point(147, 3);
+            this.argTextbox.Name = "argTextbox";
+            this.argTextbox.Size = new System.Drawing.Size(345, 27);
+            this.argTextbox.TabIndex = 14;
+            // 
             // wallet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -943,7 +1144,6 @@
             this.tableLayoutPanel5.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.walletTabControl.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel7.PerformLayout();
@@ -954,8 +1154,19 @@
             this.tableLayoutPanel10.ResumeLayout(false);
             this.tableLayoutPanel10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mixinNumeric)).EndInit();
+            this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tableLayoutPanel11.ResumeLayout(false);
+            this.tableLayoutPanel11.PerformLayout();
+            this.tableLayoutPanel12.ResumeLayout(false);
+            this.tableLayoutPanel13.ResumeLayout(false);
+            this.tableLayoutPanel13.PerformLayout();
+            this.tableLayoutPanel14.ResumeLayout(false);
+            this.tableLayoutPanel14.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1024,5 +1235,18 @@
         private System.Windows.Forms.Label verLabel;
         private System.Windows.Forms.Label label1;
         private System.ComponentModel.BackgroundWorker resyncer;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TextBox LogTextbox;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel14;
+        private System.Windows.Forms.TextBox rpcTextbox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox methodTextbox;
+        private System.Windows.Forms.TextBox argTextbox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button sendRPCButton;
     }
 }
