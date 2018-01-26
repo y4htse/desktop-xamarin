@@ -24,6 +24,7 @@ namespace TurtleWallet
         public static List<string> cachedTrx = new List<string>();
         public static Process runningDaemon;
         public static WindowLogger windowLogger;
+        public static int globalRefreshCount = 0;
 
         public string walletPath
         {
@@ -78,10 +79,11 @@ namespace TurtleWallet
             Properties.Settings.Default.walletPath = _wallet;
             Properties.Settings.Default.hasWallet = true;
             Properties.Settings.Default.Save();
-            feeAmountText.Text = Properties.Settings.Default.defaultFee.ToString();
-            feeAmountText.Enabled = false;
+            //feeAmountText.Text = Properties.Settings.Default.defaultFee.ToString();
+            //feeAmountText.Enabled = false;
             windowLogger = new WindowLogger();
             walletTabControl.SelectedIndex = 0;
+            feeComboBox.SelectedIndex = 0;
         }
 
         private void wallet_Load(object sender, EventArgs e)
@@ -157,25 +159,33 @@ namespace TurtleWallet
             }
             catch (Exception)
             {
-                this.heightAmountLabel.BeginInvoke((MethodInvoker)delegate () { heightAmountLabel.Text = "N/A"; });
-                this.difficultyAmountLabel.BeginInvoke((MethodInvoker)delegate () { difficultyAmountLabel.Text = "N/A"; });
-                this.updateLabel.BeginInvoke((MethodInvoker)delegate () 
+                try
                 {
-                    updateLabel.Text = "Livestats update failed ...";
-                    updateLabel.ForeColor = Color.FromArgb(205, 12, 47);
-                });
-                windowLogger.Log(LogTextbox, "Livestats update failed ...");
-                System.Threading.Thread.Sleep(2000);
-                this.updateLabel.BeginInvoke((MethodInvoker)delegate ()
+                    this.heightAmountLabel.BeginInvoke((MethodInvoker)delegate () { heightAmountLabel.Text = "N/A"; });
+                    this.difficultyAmountLabel.BeginInvoke((MethodInvoker)delegate () { difficultyAmountLabel.Text = "N/A"; });
+                    this.updateLabel.BeginInvoke((MethodInvoker)delegate ()
+                    {
+                        updateLabel.Text = "Livestats update failed ...";
+                        updateLabel.ForeColor = Color.FromArgb(205, 12, 47);
+                    });
+                    windowLogger.Log(LogTextbox, "Livestats update failed ...");
+                    System.Threading.Thread.Sleep(2000);
+                    this.updateLabel.BeginInvoke((MethodInvoker)delegate ()
+                    {
+                        updateLabel.Text = "Wallet Idle ...";
+                        updateLabel.ForeColor = Color.Gray;
+                    });
+                }
+                catch
                 {
-                    updateLabel.Text = "Wallet Idle ...";
-                    updateLabel.ForeColor = Color.Gray;
-                });
+                    //empty catch when application exits
+                }
             }
         }
 
         private void refresh_ui()
         {
+            globalRefreshCount++;
             Newtonsoft.Json.Linq.JObject status = null;
             Newtonsoft.Json.Linq.JToken blocks = null;
             try
@@ -314,7 +324,10 @@ namespace TurtleWallet
                         trxItem.UseItemStyleForSubItems = false;
                         txList.BeginInvoke((MethodInvoker)delegate ()
                         {
-                            txList.Items.Add(trxItem);
+                            if (globalRefreshCount > 1)
+                                txList.Items.Insert(0, trxItem);
+                            else
+                                txList.Items.Add(trxItem);
                             foreach (ColumnHeader column in txList.Columns)
                             {
                                 column.Width = -2;
@@ -536,7 +549,7 @@ namespace TurtleWallet
         {
             string sendAddr = recipientAddressText.Text;
             int amount = 0;
-            int fee = 0;
+            int fee = 10;
 
             if (!sendAddr.StartsWith("TRTL") || sendAddr.Length <= 50)
             {
@@ -551,7 +564,7 @@ namespace TurtleWallet
 
             try
             {
-                amount = (int)(float.Parse(sendAmountText.Text) * 100);
+                amount = (int)(sendAmountText.Value * 100);
                 if(amount <= 0)
                 {
                     MessageBox.Show("Invalid send amount.", "TurtleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -564,32 +577,42 @@ namespace TurtleWallet
                 return;
             }
 
-            fee = Properties.Settings.Default.defaultFee;
-            if(!feeSuggestCheck.Checked)
-            {
-                try
-                {
-                    fee = (int)(float.Parse(feeAmountText.Text) * 100);
-                    if (fee <= 0)
-                    {
-                        MessageBox.Show("Invalid fee amount.", "TurtleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    if (fee >= 1000)
-                    {
-                        MessageBox.Show("Thats a high fee you got there! You sure thats right?", "TurtleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Invalid fee amount.", "TurtleCoin Wallet", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-            }
+
+            if (feeComboBox.SelectedIndex == 0)
+                fee = Percent(amount, 0.005);
+            else if (feeComboBox.SelectedIndex == 1)
+                fee = Percent(amount, 0.01);
+            else if (feeComboBox.SelectedIndex == 2)
+                fee = Percent(amount, 0.025);
+            else if (feeComboBox.SelectedIndex == 3)
+                fee = Percent(amount, 0.05);
+
+            if (fee < 10)
+                fee = 10;
+
             int mixins = (int)mixinNumeric.Value;
 
+            List<int> TransactionAmounts = new List<int>();
+            int numberOfTransactions = 1;
+            if(amount > 50000000)
+            {
+                int wholeTrxs = (int)Math.Floor(amount / (double)50000000);
+                int diff = amount - (wholeTrxs * 50000000);
+                for (int i = 0; i < wholeTrxs; i++)
+                {
+                    TransactionAmounts.Add(50000000);
+                }
+                TransactionAmounts.Add(diff);
+            }
+            else
+            {
+                TransactionAmounts.Add(amount);
+            }
             var transfers = new List<Dictionary<string, object>>();
-            transfers.Add(new Dictionary<string, object>() { { "amount", amount }, { "address", sendAddr } });
+            foreach (var Tamount in TransactionAmounts)
+            {
+                transfers.Add(new Dictionary<string, object>() { { "amount", Tamount }, { "address", sendAddr } });
+            }
 
             var args = new Dictionary<string, object>()
             {
@@ -618,14 +641,6 @@ namespace TurtleWallet
             }
 
 
-        }
-
-        private void feeSuggestCheck_CheckedChanged(object sender, EventArgs e)
-        {
-            if (feeSuggestCheck.Checked)
-                feeAmountText.Enabled = false;
-            else
-                feeAmountText.Enabled = true;
         }
 
         private void sendRPCButton_Click(object sender, EventArgs e)
@@ -689,6 +704,58 @@ namespace TurtleWallet
                 _selectedTab.BackColor = backcolor;
                 _selectedTab.ForeColor = forcolor;
             }
+        }
+
+        private void sendAmountText_ValueChanged(object sender, EventArgs e)
+        {
+            if(sendAmountText.Value <= 100000)
+            {
+                mixinNumeric.Value = 3;
+                feeComboBox.SelectedIndex = 0;
+                sendButton.Enabled = true;
+                sendButton.Cursor = System.Windows.Forms.Cursors.Hand;
+                ToolTip disabledTooltip = new ToolTip();
+                disabledTooltip.SetToolTip(sendButton, "Send TRTL!");
+            }
+            else if(sendAmountText.Value <= 500000)
+            {
+                mixinNumeric.Value = 5;
+                feeComboBox.SelectedIndex = 1;
+                sendButton.Enabled = true;
+                sendButton.Cursor = System.Windows.Forms.Cursors.Hand;
+                ToolTip disabledTooltip = new ToolTip();
+                disabledTooltip.SetToolTip(sendButton, "Send TRTL!");
+            }
+            else if (sendAmountText.Value <= 1500000)
+            {
+                mixinNumeric.Value = 8;
+                feeComboBox.SelectedIndex = 2;
+                sendButton.Enabled = true;
+                sendButton.Cursor = System.Windows.Forms.Cursors.Hand;
+                ToolTip disabledTooltip = new ToolTip();
+                disabledTooltip.SetToolTip(sendButton, "Send TRTL!");
+            }
+            else if (sendAmountText.Value >= 1500001)
+            {
+                mixinNumeric.Value = 13;
+                feeComboBox.SelectedIndex = 3;
+                sendButton.Enabled = true;
+                sendButton.Cursor = System.Windows.Forms.Cursors.Hand;
+                ToolTip disabledTooltip = new ToolTip();
+                disabledTooltip.SetToolTip(sendButton, "Send TRTL!");
+            }
+            else
+            {
+                sendButton.Enabled = false;
+                sendButton.Cursor = System.Windows.Forms.Cursors.No;
+                ToolTip disabledTooltip = new ToolTip();
+                disabledTooltip.SetToolTip(sendButton, "Invalid Amount!");
+            }
+        }
+
+        public static int Percent(int number, double percent)
+        {
+            return (int)Math.Round(((double)number * percent) / 100);
         }
     }
 }

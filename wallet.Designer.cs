@@ -63,13 +63,10 @@
             this.label24 = new System.Windows.Forms.Label();
             this.recipientAddressText = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
-            this.label25 = new System.Windows.Forms.Label();
-            this.sendAmountText = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.label27 = new System.Windows.Forms.Label();
             this.mixinNumeric = new System.Windows.Forms.NumericUpDown();
-            this.feeSuggestCheck = new System.Windows.Forms.CheckBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -98,8 +95,11 @@
             this.homeButton = new System.Windows.Forms.Label();
             this.sendButton = new System.Windows.Forms.Label();
             this.resyncer = new System.ComponentModel.BackgroundWorker();
-            this.feeAmountText = new System.Windows.Forms.TextBox();
+            this.feeComboBox = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.FeeExplainLabel = new System.Windows.Forms.Label();
+            this.sendAmountText = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -123,6 +123,7 @@
             this.tableLayoutPanel13.SuspendLayout();
             this.tableLayoutPanel14.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sendAmountText)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -496,8 +497,8 @@
             // 
             // walletTabControl
             // 
-            this.walletTabControl.Controls.Add(this.tabPage2);
             this.walletTabControl.Controls.Add(this.tabPage1);
+            this.walletTabControl.Controls.Add(this.tabPage2);
             this.walletTabControl.Controls.Add(this.tabPage3);
             this.walletTabControl.Controls.Add(this.tabPage4);
             this.walletTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -537,9 +538,9 @@
             this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel8, 1, 1);
             this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel9, 1, 2);
             this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel10, 2, 1);
-            this.tableLayoutPanel7.Controls.Add(this.feeSuggestCheck, 2, 2);
             this.tableLayoutPanel7.Controls.Add(this.panel4, 0, 3);
             this.tableLayoutPanel7.Controls.Add(this.panel5, 1, 3);
+            this.tableLayoutPanel7.Controls.Add(this.FeeExplainLabel, 2, 2);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -548,6 +549,7 @@
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel7.Size = new System.Drawing.Size(1014, 197);
             this.tableLayoutPanel7.TabIndex = 0;
             // 
@@ -574,12 +576,12 @@
             this.label22.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label22.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(170)))), ((int)(((byte)(107)))));
-            this.label22.Location = new System.Drawing.Point(3, 0);
+            this.label22.Location = new System.Drawing.Point(3, 10);
+            this.label22.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(173, 49);
+            this.label22.Size = new System.Drawing.Size(173, 39);
             this.label22.TabIndex = 1;
             this.label22.Text = "Recipient Address:";
-            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label23
             // 
@@ -587,12 +589,12 @@
             this.label23.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label23.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
             this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(170)))), ((int)(((byte)(107)))));
-            this.label23.Location = new System.Drawing.Point(3, 49);
+            this.label23.Location = new System.Drawing.Point(3, 59);
+            this.label23.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(173, 49);
+            this.label23.Size = new System.Drawing.Size(173, 39);
             this.label23.TabIndex = 2;
             this.label23.Text = "Amount:";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label24
             // 
@@ -600,12 +602,12 @@
             this.label24.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label24.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
             this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(170)))), ((int)(((byte)(107)))));
-            this.label24.Location = new System.Drawing.Point(3, 98);
+            this.label24.Location = new System.Drawing.Point(3, 108);
+            this.label24.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(173, 49);
+            this.label24.Size = new System.Drawing.Size(173, 39);
             this.label24.TabIndex = 3;
             this.label24.Text = "Fee:";
-            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // recipientAddressText
             // 
@@ -626,7 +628,7 @@
             this.tableLayoutPanel8.ColumnCount = 2;
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel8.Controls.Add(this.label25, 0, 0);
+            this.tableLayoutPanel8.Controls.Add(this.label7, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.sendAmountText, 0, 0);
             this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel8.Location = new System.Drawing.Point(182, 52);
@@ -637,39 +639,13 @@
             this.tableLayoutPanel8.Size = new System.Drawing.Size(490, 43);
             this.tableLayoutPanel8.TabIndex = 5;
             // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label25.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.ForeColor = System.Drawing.Color.White;
-            this.label25.Location = new System.Drawing.Point(395, 0);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(92, 43);
-            this.label25.TabIndex = 6;
-            this.label25.Text = "TRTL";
-            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // sendAmountText
-            // 
-            this.sendAmountText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.sendAmountText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.sendAmountText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sendAmountText.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sendAmountText.ForeColor = System.Drawing.Color.White;
-            this.sendAmountText.Location = new System.Drawing.Point(3, 5);
-            this.sendAmountText.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
-            this.sendAmountText.Name = "sendAmountText";
-            this.sendAmountText.Size = new System.Drawing.Size(386, 34);
-            this.sendAmountText.TabIndex = 5;
-            // 
             // tableLayoutPanel9
             // 
             this.tableLayoutPanel9.ColumnCount = 2;
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel9.Controls.Add(this.label6, 0, 0);
-            this.tableLayoutPanel9.Controls.Add(this.feeAmountText, 0, 0);
+            this.tableLayoutPanel9.Controls.Add(this.label6, 1, 0);
+            this.tableLayoutPanel9.Controls.Add(this.feeComboBox, 0, 0);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel9.Location = new System.Drawing.Point(182, 101);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
@@ -700,12 +676,13 @@
             this.label27.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label27.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
             this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(170)))), ((int)(((byte)(107)))));
-            this.label27.Location = new System.Drawing.Point(3, 0);
+            this.label27.Location = new System.Drawing.Point(3, 8);
+            this.label27.Margin = new System.Windows.Forms.Padding(3, 8, 3, 0);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(127, 43);
+            this.label27.Size = new System.Drawing.Size(127, 35);
             this.label27.TabIndex = 4;
             this.label27.Text = "Mixin:";
-            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label27.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // mixinNumeric
             // 
@@ -718,24 +695,11 @@
             this.mixinNumeric.Name = "mixinNumeric";
             this.mixinNumeric.Size = new System.Drawing.Size(180, 30);
             this.mixinNumeric.TabIndex = 5;
-            // 
-            // feeSuggestCheck
-            // 
-            this.feeSuggestCheck.AutoSize = true;
-            this.feeSuggestCheck.Checked = true;
-            this.feeSuggestCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.feeSuggestCheck.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.feeSuggestCheck.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.feeSuggestCheck.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(170)))), ((int)(((byte)(107)))));
-            this.feeSuggestCheck.Location = new System.Drawing.Point(678, 101);
-            this.feeSuggestCheck.Name = "feeSuggestCheck";
-            this.feeSuggestCheck.Padding = new System.Windows.Forms.Padding(94, 0, 0, 0);
-            this.feeSuggestCheck.Size = new System.Drawing.Size(333, 43);
-            this.feeSuggestCheck.TabIndex = 8;
-            this.feeSuggestCheck.Text = "Use suggested fee amount";
-            this.feeSuggestCheck.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.feeSuggestCheck.UseVisualStyleBackColor = true;
-            this.feeSuggestCheck.CheckedChanged += new System.EventHandler(this.feeSuggestCheck_CheckedChanged);
+            this.mixinNumeric.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
             // 
             // panel4
             // 
@@ -1093,18 +1057,24 @@
             // 
             this.resyncer.DoWork += new System.ComponentModel.DoWorkEventHandler(this.resyncer_DoWork);
             // 
-            // feeAmountText
+            // feeComboBox
             // 
-            this.feeAmountText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.feeAmountText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.feeAmountText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.feeAmountText.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.feeAmountText.ForeColor = System.Drawing.Color.White;
-            this.feeAmountText.Location = new System.Drawing.Point(3, 5);
-            this.feeAmountText.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
-            this.feeAmountText.Name = "feeAmountText";
-            this.feeAmountText.Size = new System.Drawing.Size(386, 34);
-            this.feeAmountText.TabIndex = 6;
+            this.feeComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.feeComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.feeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.feeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.feeComboBox.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.feeComboBox.ForeColor = System.Drawing.Color.White;
+            this.feeComboBox.FormattingEnabled = true;
+            this.feeComboBox.Items.AddRange(new object[] {
+            ".1% (Tiny)",
+            ".5% (Low)",
+            "1% (Medium)",
+            "3% (High)"});
+            this.feeComboBox.Location = new System.Drawing.Point(3, 3);
+            this.feeComboBox.Name = "feeComboBox";
+            this.feeComboBox.Size = new System.Drawing.Size(386, 36);
+            this.feeComboBox.TabIndex = 0;
             // 
             // label6
             // 
@@ -1112,12 +1082,58 @@
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(395, 0);
+            this.label6.Location = new System.Drawing.Point(395, 10);
+            this.label6.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(92, 43);
+            this.label6.Size = new System.Drawing.Size(92, 33);
             this.label6.TabIndex = 7;
             this.label6.Text = "TRTL";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // FeeExplainLabel
+            // 
+            this.FeeExplainLabel.AutoSize = true;
+            this.FeeExplainLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FeeExplainLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FeeExplainLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(170)))), ((int)(((byte)(107)))));
+            this.FeeExplainLabel.Location = new System.Drawing.Point(678, 98);
+            this.FeeExplainLabel.Name = "FeeExplainLabel";
+            this.FeeExplainLabel.Size = new System.Drawing.Size(333, 49);
+            this.FeeExplainLabel.TabIndex = 12;
+            this.FeeExplainLabel.Text = "* Default fee && Mixins based off sent amount.\r\n* You may set a higher Mixin if n" +
+    "eeded.";
+            this.FeeExplainLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // sendAmountText
+            // 
+            this.sendAmountText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.sendAmountText.DecimalPlaces = 2;
+            this.sendAmountText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sendAmountText.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sendAmountText.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.sendAmountText.Location = new System.Drawing.Point(10, 3);
+            this.sendAmountText.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.sendAmountText.Maximum = new decimal(new int[] {
+            -727379968,
+            232,
+            0,
+            0});
+            this.sendAmountText.Name = "sendAmountText";
+            this.sendAmountText.Size = new System.Drawing.Size(372, 30);
+            this.sendAmountText.TabIndex = 6;
+            this.sendAmountText.ValueChanged += new System.EventHandler(this.sendAmountText_ValueChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(395, 10);
+            this.label7.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(92, 33);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "TRTL";
             // 
             // wallet
             // 
@@ -1167,6 +1183,7 @@
             this.tableLayoutPanel14.PerformLayout();
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sendAmountText)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1216,13 +1233,10 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TextBox recipientAddressText;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.TextBox sendAmountText;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.NumericUpDown mixinNumeric;
-        private System.Windows.Forms.CheckBox feeSuggestCheck;
         private System.Windows.Forms.Label sendTrtlButton;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel5;
@@ -1247,6 +1261,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button sendRPCButton;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox feeAmountText;
+        private System.Windows.Forms.ComboBox feeComboBox;
+        private System.Windows.Forms.Label FeeExplainLabel;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown sendAmountText;
     }
 }
